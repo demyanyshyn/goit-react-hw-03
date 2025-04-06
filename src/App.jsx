@@ -29,7 +29,7 @@ const App = () => {
     };
 
     const addNewContact = contact => {
-        setContactList(contact);
+        setContactList([...contactList, contact]);
     };
     return (
         <section className="app">

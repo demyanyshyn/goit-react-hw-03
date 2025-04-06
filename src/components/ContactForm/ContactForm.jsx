@@ -10,7 +10,7 @@ const initialValues = {
     number: '',
 };
 
-const ContactForm = ({ contactList, addNewContact }) => {
+const ContactForm = ({ addNewContact }) => {
     const nameFieldId = crypto.randomUUID();
     const numberFieldId = crypto.randomUUID();
 
@@ -21,11 +21,7 @@ const ContactForm = ({ contactList, addNewContact }) => {
             number,
         };
 
-        const newContactList = contactList.slice(0);
-
-        newContactList.push(newContact);
-        addNewContact(newContactList);
-
+        addNewContact(newContact);
         actions.resetForm();
     };
     const addContactkSchema = Yup.object().shape({

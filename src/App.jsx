@@ -11,9 +11,9 @@ const App = () => {
     );
 
     const [inputValue, setInputValue] = useState('');
-    const [contactList, setContactList] = localStorageContactList
-        ? useState(localStorageContactList)
-        : useState(plugContacts);
+    const [contactList, setContactList] = useState(() => {
+        return localStorageContactList ? localStorageContactList : plugContacts;
+    });
 
     useEffect(() => {
         localStorage.setItem('contact-list', JSON.stringify(contactList));
@@ -24,30 +24,28 @@ const App = () => {
         setContactList(newContactList);
     };
 
-    const handleInput = evt => {
+    const handleFilterInput = evt => {
         setInputValue(evt.target.value);
     };
 
-    const filteredContactList = inputValue => {
-        return contactList.filter(contact =>
-            Object.values(contact).some(
-                value =>
-                    typeof value === 'string' &&
-                    value.toLowerCase().includes(inputValue.toLowerCase())
-            )
-        );
+    const addNewContact = contact => {
+        setContactList(contact);
     };
     return (
         <section className="app">
             <h1>Phonebook</h1>
             <ContactForm
                 contactList={contactList}
-                setContactList={setContactList}
+                addNewContact={addNewContact}
             />
-            <SearchBox handleInput={handleInput} inputValue={inputValue} />
+            <SearchBox
+                handleInput={handleFilterInput}
+                inputValue={inputValue}
+            />
             <ContactList
-                contactList={filteredContactList(inputValue)}
+                contactList={contactList}
                 handleDeleteContact={handleDeleteContact}
+                inputValue={inputValue}
             />
         </section>
     );

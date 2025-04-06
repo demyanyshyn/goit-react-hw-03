@@ -10,7 +10,7 @@ const initialValues = {
     number: '',
 };
 
-const ContactForm = ({ contactList, setContactList }) => {
+const ContactForm = ({ contactList, addNewContact }) => {
     const nameFieldId = crypto.randomUUID();
     const numberFieldId = crypto.randomUUID();
 
@@ -24,7 +24,7 @@ const ContactForm = ({ contactList, setContactList }) => {
         const newContactList = contactList.slice(0);
 
         newContactList.push(newContact);
-        setContactList(newContactList);
+        addNewContact(newContactList);
 
         actions.resetForm();
     };
